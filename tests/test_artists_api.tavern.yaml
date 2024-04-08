@@ -1,0 +1,60 @@
+---
+# Every test file has one or more tests...
+test_name: Test Artists
+
+# ...and each test has one or more stages (e.g. an HTTP request)
+stages:
+  - name: test ping endpoint
+
+    request:
+      url: http://localhost:8000/ping
+      method: GET
+
+    response:
+      status_code: 200
+      json:
+        ping: "pong!"
+
+  - name: test artists endpoint
+
+    request:
+      url: http://localhost:8000/artists/
+      method: GET
+
+    response:
+      status_code: 200
+      json:
+        []
+
+  - name: test add an artist
+
+    request:
+      url: http://localhost:8000/artists/
+      method: POST
+      json:
+        name: "Manos"
+        surname: "Loizos"
+
+    response:
+      status_code: 200
+      json:
+        id: 1
+        name: "Manos"
+        surname: "Loizos"
+
+  - name: test get artists
+
+    request:
+      url: http://localhost:8000/artists/
+      method: GET
+
+    response:
+      status_code: 200
+      json:
+        [ {
+          id: 1,
+          name: "Manos",
+          surname: "Loizos",
+          songs: []
+        }
+        ]
